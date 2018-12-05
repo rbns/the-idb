@@ -31,6 +31,7 @@ module SoftwareHelper
         next if not parsed_query[s["name"]]
         next if not parsed_query[s["name"]].call(s["version"])
         machines << m
+        break
       }
     }
 
