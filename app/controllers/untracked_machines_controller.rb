@@ -8,6 +8,11 @@ class UntrackedMachinesController < ApplicationController
         @untracked_machines.delete(m)
         UntrackedMachinesList.new($redis).set(@untracked_machines)
       end
+
+      # remove machines with invalid fqdns to prevent exceptions in templates
+      if not Machine.new(fqdn: m).validate
+        @untracked_machines.delete(m)
+      end
     end
   end
 
